@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典小游戏合集 - 终极修复版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, #ff8a00, #da1b60);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(to right, #ff8a00, #da1b60);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* 游戏菜单样式 */
+        .games-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,138,0,0.2), rgba(218,27,96,0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .game-card:hover::before {
+            opacity: 1;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-card i {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #ff8a00;
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover i {
+            transform: scale(1.1);
+        }
+        
+        .game-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .game-card p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* 游戏区域样式 */
+        .game-area {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            min-height: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .game-title {
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .game-title i {
+            color: #ff8a00;
+        }
+        
+        .game-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .game-stats div {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 30px;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #ff8a00, #da1b60);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        /* 具体游戏画布样式 */
+        .game-canvas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        
+        canvas {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            max-width: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 游戏说明 */
+        .instructions {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #ff8a00;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 卡片游戏容器 - 增加两倍间距 */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px; /* 增加两倍卡牌间距 */
+            max-width: 600px; /* 增加容器宽度 */
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        .card {
+            aspect-ratio: 1/1;
+            background: #9c27b0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem; /* 减小字体大小 */
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            position: relative;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            width: 100%;
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card .front, .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+        
+        .card .front {
+            background: #7b1fa2;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .card .back {
+            background: #4caf50;
+            transform: rotateY(180deg);
+            color: white;
+        }
+        
+        /* 添加方块背景 */
+        .card .back::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            z-index: 1;
+        }
+        
+        /* 井字棋样式 */
+        .tic-tac-toe-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .tic-tac-toe-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            margin: 0 auto 20px;
+            max-width: 310px;
+        }
+        
+        .cell {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .cell:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .cell.x::before {
+            content: "X";
+            color: #ff5252;
+        }
+        
+        .cell.o::before {
+            content: "O";
+            color: #4caf50;
+        }
+        
+        /* 扫雷样式 - 完全重构 */
+        .minesweeper-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            max-width: 100%;
+            padding: 15px;
+        }
+        
+        .minesweeper-board {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            grid-template-rows: repeat(10, 30px);
+            gap: 2px;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .mine-cell {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        
+        .mine-cell:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .mine-cell.revealed {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .mine-cell.flagged::before {
+            content: "🚩";
+            font-size: 1.2rem;
+        }
+        
+        .mine-cell.mine::before {
+            content: "💣";
+            font-size: 1.2rem;
+        }
+        
+        /* 扫雷控制按钮 */
+        .mine-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        /* 打砖块样式 */
+        #brick-canvas {
+            background: #111;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .games-menu {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .game-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .game-stats div {
+                min-width: auto;
+                padding: 8px 15px;
+            }
+            
+            .game-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .card-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px; /* 移动端增加间距 */
+                max-width: 500px;
+            }
+            
+            .card {
+                font-size: 1.5rem; /* 移动端减小字体 */
+            }
+            
+            .tic-tac-toe-board {
+                grid-template-columns: repeat(3, 80px);
+                grid-template-rows: repeat(3, 80px);
+            }
+            
+            .minesweeper-board {
+                grid-template-columns: repeat(10, 25px);
+                grid-template-rows: repeat(10, 25px);
+            }
+            
+            .mine-cell {
+                width: 25px;
+                height: 25px;
+            }
+            
+            .game-canvas {
+                min-height: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .game-title {
+                font-size: 1.8rem;
+            }
+            
+            .card-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px; /* 小屏幕增加间距 */
+                max-width: 400px;
+            }
+            
+            .card {
+                font-size: 1.2rem; /* 小屏幕进一步减小字体 */
+            }
+            
+            .tic-tac-toe-board {
+                grid-template-columns: repeat(3, 70px);
+                grid-template-rows: repeat(3, 70px);
+            }
+            
+            .minesweeper-board {
+                grid-template-columns: repeat(10, 22px);
+                grid-template-rows: repeat(10, 22px);
+            }
+            
+            .mine-cell {
+                width: 22px;
+                height: 22px;
+                font-size: 0.7rem;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* 游戏结束提示 */
+        .game-over {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .game-over h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ff5252;
+        }
+        
+        .game-over p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        /* 修复打砖块布局 */
+        .brick-game-container {
+            position: relative;
+        }
+        
+        /* 游戏标题动画 */
+        .game-title h2 {
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* 记忆翻牌游戏按钮容器 */
+        .memory-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-gamepad"></i> 经典小游戏合集</h1>
+            <p class="subtitle">终极修复版 - 所有问题已解决</p>
+        </header>
+        
+        <div class="games-menu">
+            <div class="game-card" onclick="GameManager.selectGame('snake')">
+                <i class="fas fa-snake"></i>
+                <h3>贪吃蛇</h3>
+                <p>经典怀旧游戏</p>
+            </div>
+            
+            <div class="game-card" onclick="GameManager.selectGame('memory')">
+                <i class="fas fa-brain"></i>
+                <h3>记忆翻牌</h3>
+                <p>测试你的记忆力</p>
+            </div>
+            
+            <div class="game-card" onclick="GameManager.selectGame('brick')">
+                <i class="fas fa-table-tennis"></i>
+                <h3>打砖块</h3>
+                <p>弹球消除砖块</p>
+            </div>
+            
+            <div class="game-card" onclick="GameManager.selectGame('tic-tac-toe')">
+                <i class="fas fa-times-circle"></i>
+                <h3>井字棋</h3>
+                <p>双人对战游戏</p>
+            </div>
+            
+            <div class="game-card" onclick="GameManager.selectGame('minesweeper')">
+                <i class="fas fa-flag"></i>
+                <h3>扫雷</h3>
+                <p>经典逻辑游戏</p>
+            </div>
+        </div>
+        
+        <div class="game-area">
+            <div class="game-header">
+                <div class="game-title">
+                    <i class="fas fa-snake"></i>
+                    <h2 id="current-game">贪吃蛇</h2>
+                </div>
+                <div class="game-stats" id="game-stats">
+                    <div>得分: <span id="score">0</span></div>
+                    <div>最高分: <span id="high-score">0</span></div>
+                </div>
+            </div>
+            
+            <div class="game-canvas" id="game-canvas">
+                <!-- 贪吃蛇游戏 -->
+                <div class="brick-game-container">
+                    <canvas id="snake-canvas" width="600" height="400"></canvas>
+                </div>
+                
+                <!-- 记忆翻牌游戏 - 间距已增加两倍 -->
+                <div id="memory-game" style="display:none">
+                    <div class="card-container" id="card-container"></div>
+                    <div class="memory-controls">
+                        <button onclick="GameManager.resetGame()"><i class="fas fa-redo"></i> 重新开始</button>
+                    </div>
+                </div>
+                
+                <!-- 打砖块游戏 -->
+                <div id="brick-game" style="display:none">
+                    <div class="brick-game-container">
+                        <canvas id="brick-canvas" width="600" height="400"></canvas>
+                    </div>
+                </div>
+                
+                <!-- 井字棋游戏 -->
+                <div id="tic-tac-toe" style="display:none">
+                    <div class="tic-tac-toe-container">
+                        <div class="tic-tac-toe-board" id="tic-tac-toe-board"></div>
+                        <button onclick="GameManager.resetGame()"><i class="fas fa-redo"></i> 重新开始</button>
+                    </div>
+                </div>
+                
+                <!-- 扫雷游戏 - 完全重构 -->
+                <div id="minesweeper" style="display:none">
+                    <div class="minesweeper-container">
+                        <div class="minesweeper-board" id="minesweeper-board"></div>
+                        <div class="mine-controls">
+                            <button onclick="GameManager.resetGame()"><i class="fas fa-redo"></i> 重新开始</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls" id="game-controls">
+                <button id="start-btn" onclick="GameManager.startGame()"><i class="fas fa-play"></i> 开始游戏</button>
+                <button id="reset-btn" onclick="GameManager.resetGame()"><i class="fas fa-redo"></i> 重新开始</button>
+                <button id="pause-btn" onclick="GameManager.pauseGame()"><i class="fas fa-pause"></i> 暂停游戏</button>
+            </div>
+            
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> 游戏说明</h3>
+                <p id="game-instructions">使用键盘方向键（上、下、左、右）控制蛇的移动方向。吃到食物后蛇身会变长，碰到墙壁或自己的身体游戏结束。尽可能获得高分！</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 游戏管理器 - 终极修复版
+        const GameManager = {
+            currentGame: 'snake',
+            gameRunning: false,
+            gameLoop: null,
+            
+            // 游戏对象
+            games: {
+                snake: null,
+                memory: null,
+                brick: null,
+                ticTacToe: null,
+                minesweeper: null
+            },
+            
+            // 选择游戏
+            selectGame: function(game) {
+                this.currentGame = game;
+                
+                // 隐藏所有游戏画布
+                document.getElementById('snake-canvas').style.display = 'none';
+                document.getElementById('memory-game').style.display = 'none';
+                document.getElementById('brick-game').style.display = 'none';
+                document.getElementById('tic-tac-toe').style.display = 'none';
+                document.getElementById('minesweeper').style.display = 'none';
+                
+                // 显示当前游戏
+                if (game === 'snake') {
+                    document.getElementById('snake-canvas').style.display = 'block';
+                    document.getElementById('game-controls').style.display = 'flex';
+                    document.getElementById('game-stats').style.display = 'flex';
+                    document.getElementById('current-game').textContent = '贪吃蛇';
+                    document.getElementById('game-instructions').innerHTML = '使用键盘方向键（上、下、左、右）控制蛇的移动方向。吃到食物后蛇身会变长，碰到墙壁或自己的身体游戏结束。尽可能获得高分！';
+                    this.games.snake = new SnakeGame();
+                    
+                    // 显示所有按钮
+                    document.getElementById('start-btn').style.display = 'flex';
+                    document.getElementById('reset-btn').style.display = 'flex';
+                    document.getElementById('pause-btn').style.display = 'flex';
+                } 
+                else if (game === 'memory') {
+                    document.getElementById('memory-game').style.display = 'block';
+                    document.getElementById('game-controls').style.display = 'none';
+                    document.getElementById('game-stats').style.display = 'none';
+                    document.getElementById('current-game').textContent = '记忆翻牌';
+                    document.getElementById('game-instructions').innerHTML = '点击卡片翻开它们，尝试找到所有相同的配对。每次只能翻开两张卡片，如果配对成功则保持翻开状态，否则卡片会翻回去。在尽可能少的步数内完成所有配对！';
+                    this.games.memory = new MemoryGame();
+                    
+                    // 只显示重新开始按钮
+                    document.getElementById('start-btn').style.display = 'none';
+                    document.getElementById('reset-btn').style.display = 'flex';
+                    document.getElementById('pause-btn').style.display = 'none';
+                } 
+                else if (game === 'brick') {
+                    document.getElementById('brick-game').style.display = 'block';
+                    document.getElementById('game-controls').style.display = 'flex';
+                    document.getElementById('game-stats').style.display = 'flex';
+                    document.getElementById('current-game').textContent = '打砖块';
+                    document.getElementById('game-instructions').innerHTML = '使用鼠标或键盘左右键移动挡板，反弹小球击碎砖块。当所有砖块被消除时，游戏胜利。不要让小球掉落到底部！';
+                    this.games.brick = new BrickGame();
+                    
+                    // 显示所有按钮
+                    document.getElementById('start-btn').style.display = 'flex';
+                    document.getElementById('reset-btn').style.display = 'flex';
+                    document.getElementById('pause-btn').style.display = 'flex';
+                } 
+                else if (game === 'tic-tac-toe') {
+                    document.getElementById('tic-tac-toe').style.display = 'block';
+                    document.getElementById('game-controls').style.display = 'none';
+                    document.getElementById('game-stats').style.display = 'none';
+                    document.getElementById('current-game').textContent = '井字棋';
+                    document.getElementById('game-instructions').innerHTML = '两名玩家轮流在3×3的棋盘上放置自己的标记（X或O）。先将三个标记连成一条直线（横、竖、斜）的玩家获胜。';
+                    this.games.ticTacToe = new TicTacToe();
+                    
+                    // 只显示重新开始按钮
+                    document.getElementById('start-btn').style.display = 'none';
+                    document.getElementById('reset-btn').style.display = 'flex';
+                    document.getElementById('pause-btn').style.display = 'none';
+                } 
+                else if (game === 'minesweeper') {
+                    document.getElementById('minesweeper').style.display = 'block';
+                    document.getElementById('game-controls').style.display = 'none';
+                    document.getElementById('game-stats').style.display = 'flex';
+                    document.getElementById('current-game').textContent = '扫雷';
+                    document.getElementById('game-instructions').innerHTML = '点击格子翻开它，如果翻开的是地雷则游戏结束。数字表示周围8个格子中的地雷数量。使用右键标记可能存在地雷的位置。';
+                    this.games.minesweeper = new Minesweeper();
+                    
+                    // 只显示重新开始按钮
+                    document.getElementById('start-btn').style.display = 'none';
+                    document.getElementById('reset-btn').style.display = 'flex';
+                    document.getElementById('pause-btn').style.display = 'none';
+                }
+                
+                // 停止任何正在运行的循环
+                this.stopGame();
+            },
+            
+            // 开始游戏
+            startGame: function() {
+                if (this.gameRunning) return;
+                this.gameRunning = true;
+                
+                if (this.currentGame === 'snake') {
+                    this.games.snake.start();
+                } else if (this.currentGame === 'brick') {
+                    this.games.brick.start();
+                }
+            },
+            
+            // 暂停游戏
+            pauseGame: function() {
+                if (!this.gameRunning) return;
+                this.gameRunning = false;
+                
+                if (this.currentGame === 'snake') {
+                    this.games.snake.pause();
+                } else if (this.currentGame === 'brick') {
+                    this.games.brick.pause();
+                }
+            },
+            
+            // 停止游戏
+            stopGame: function() {
+                this.gameRunning = false;
+                if (this.gameLoop) {
+                    clearInterval(this.gameLoop);
+                    this.gameLoop = null;
+                }
+            },
+            
+            // 重置游戏
+            resetGame: function() {
+                if (this.currentGame === 'snake') {
+                    this.games.snake.reset();
+                } else if (this.currentGame === 'brick') {
+                    this.games.brick.reset();
+                } else if (this.currentGame === 'memory') {
+                    this.games.memory.reset();
+                } else if (this.currentGame === 'tic-tac-toe') {
+                    this.games.ticTacToe.reset();
+                } else if (this.currentGame === 'minesweeper') {
+                    this.games.minesweeper.reset();
+                }
+            },
+            
+            // 更新分数
+            updateScore: function(score) {
+                document.getElementById('score').textContent = score;
+            },
+            
+            // 更新最高分
+            updateHighScore: function(highScore) {
+                document.getElementById('high-score').textContent = highScore;
+            }
+        };
+
+        // ======================== 贪吃蛇游戏 ========================
+        class SnakeGame {
+            constructor() {
+                this.canvas = document.getElementById('snake-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.snake = [];
+                this.food = {};
+                this.direction = 'right';
+                this.nextDirection = 'right';
+                this.score = 0;
+                this.highScore = localStorage.getItem('snakeHighScore') || 0;
+                this.running = false;
+                this.gameLoop = null;
+                this.gameOver = false;
+                
+                this.init();
+            }
+            
+            init() {
+                // 初始化蛇
+                this.snake = [
+                    {x: 200, y: 200},
+                    {x: 190, y: 200},
+                    {x: 180, y: 200},
+                    {x: 170, y: 200},
+                    {x: 160, y: 200}
+                ];
+                
+                // 生成食物
+                this.generateFood();
+                
+                // 显示最高分
+                GameManager.updateHighScore(this.highScore);
+                GameManager.updateScore(this.score);
+                
+                // 添加键盘事件监听
+                document.addEventListener('keydown', this.changeDirection.bind(this));
+                
+                // 绘制初始状态
+                this.draw();
+                
+                this.gameOver = false;
+            }
+            
+            start() {
+                if (this.running || this.gameOver) return;
+                this.running = true;
+                this.gameLoop = setInterval(this.update.bind(this), 100);
+            }
+            
+            pause() {
+                this.running = false;
+                clearInterval(this.gameLoop);
+            }
+            
+            reset() {
+                this.pause();
+                this.score = 0;
+                GameManager.updateScore(this.score);
+                this.direction = 'right';
+                this.nextDirection = 'right';
+                this.gameOver = false;
+                this.init();
+            }
+            
+            generateFood() {
+                const foodX = Math.floor(Math.random() * (this.canvas.width / 10)) * 10;
+                const foodY = Math.floor(Math.random() * (this.canvas.height / 10)) * 10;
+                
+                // 确保食物不会出现在蛇身上
+                for (let segment of this.snake) {
+                    if (segment.x === foodX && segment.y === foodY) {
+                        return this.generateFood();
+                    }
+                }
+                
+                this.food = {x: foodX, y: foodY};
+            }
+            
+            update() {
+                // 移动蛇
+                this.moveSnake();
+                
+                // 检查游戏结束条件
+                if (this.isGameOver()) {
+                    this.gameOver = true;
+                    this.pause();
+                    this.drawGameOver();
+                    return;
+                }
+                
+                // 绘制游戏
+                this.draw();
+            }
+            
+            draw() {
+                // 清空画布
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // 绘制蛇
+                this.ctx.fillStyle = '#4CAF50';
+                for (let segment of this.snake) {
+                    this.ctx.fillRect(segment.x, segment.y, 10, 10);
+                    
+                    // 绘制蛇身内部细节
+                    this.ctx.fillStyle = '#45a049';
+                    this.ctx.fillRect(segment.x + 2, segment.y + 2, 6, 6);
+                    this.ctx.fillStyle = '#4CAF50';
+                }
+                
+                // 绘制蛇头
+                this.ctx.fillStyle = '#388E3C';
+                this.ctx.fillRect(this.snake[0].x, this.snake[0].y, 10, 10);
+                
+                // 绘制眼睛
+                this.ctx.fillStyle = 'white';
+                if (this.direction === 'right') {
+                    this.ctx.fillRect(this.snake[0].x + 6, this.snake[0].y + 2, 2, 2);
+                    this.ctx.fillRect(this.snake[0].x + 6, this.snake[0].y + 6, 2, 2);
+                } else if (this.direction === 'left') {
+                    this.ctx.fillRect(this.snake[0].x + 2, this.snake[0].y + 2, 2, 2);
+                    this.ctx.fillRect(this.snake[0].x + 2, this.snake[0].y + 6, 2, 2);
+                } else if (this.direction === 'up') {
+                    this.ctx.fillRect(this.snake[0].x + 2, this.snake[0].y + 2, 2, 2);
+                    this.ctx.fillRect(this.snake[0].x + 6, this.snake[0].y + 2, 2, 2);
+                } else if (this.direction === 'down') {
+                    this.ctx.fillRect(this.snake[0].x + 2, this.snake[0].y + 6, 2, 2);
+                    this.ctx.fillRect(this.snake[0].x + 6, this.snake[0].y + 6, 2, 2);
+                }
+                
+                // 绘制食物
+                this.ctx.fillStyle = '#FF5252';
+                this.ctx.beginPath();
+                this.ctx.arc(this.food.x + 5, this.food.y + 5, 5, 0, Math.PI * 2);
+                this.ctx.fill();
+                
+                // 绘制食物内部细节
+                this.ctx.fillStyle = '#ff8a80';
+                this.ctx.beginPath();
+                this.ctx.arc(this.food.x + 5, this.food.y + 5, 3, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+            
+            moveSnake() {
+                this.direction = this.nextDirection;
+                
+                // 创建新的蛇头
+                const head = {x: this.snake[0].x, y: this.snake[0].y};
+                
+                if (this.direction === 'right') head.x += 10;
+                else if (this.direction === 'left') head.x -= 10;
+                else if (this.direction === 'up') head.y -= 10;
+                else if (this.direction === 'down') head.y += 10;
+                
+                // 添加新的蛇头
+                this.snake.unshift(head);
+                
+                // 检查是否吃到食物
+                if (head.x === this.food.x && head.y === this.food.y) {
+                    this.score += 10;
+                    GameManager.updateScore(this.score);
+                    
+                    // 更新最高分
+                    if (this.score > this.highScore) {
+                        this.highScore = this.score;
+                        localStorage.setItem('snakeHighScore', this.highScore);
+                        GameManager.updateHighScore(this.highScore);
+                    }
+                    
+                    this.generateFood();
+                } else {
+                    // 如果没有吃到食物，移除蛇尾
+                    this.snake.pop();
+                }
+            }
+            
+            changeDirection(e) {
+                // 防止蛇反向移动
+                if (e.key === 'ArrowUp' && this.direction !== 'down') this.nextDirection = 'up';
+                else if (e.key === 'ArrowDown' && this.direction !== 'up') this.nextDirection = 'down';
+                else if (e.key === 'ArrowLeft' && this.direction !== 'right') this.nextDirection = 'left';
+                else if (e.key === 'ArrowRight' && this.direction !== 'left') this.nextDirection = 'right';
+            }
+            
+            isGameOver() {
+                const head = this.snake[0];
+                
+                // 检查是否撞墙
+                if (head.x < 0 || head.x >= this.canvas.width || head.y < 0 || head.y >= this.canvas.height) {
+                    return true;
+                }
+                
+                // 检查是否撞到自己
+                for (let i = 1; i < this.snake.length; i++) {
+                    if (head.x === this.snake[i].x && head.y === this.snake[i].y) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
+            drawGameOver() {
+                this.ctx.font = "48px Arial";
+                this.ctx.fillStyle = "white";
+                this.ctx.textAlign = "center";
+                this.ctx.fillText("游戏结束!", this.canvas.width/2, this.canvas.height/2 - 30);
+                
+                this.ctx.font = "24px Arial";
+                this.ctx.fillText(`得分: ${this.score}`, this.canvas.width/2, this.canvas.height/2 + 20);
+                
+                this.ctx.fillText("按'重新开始'按钮再玩一次", this.canvas.width/2, this.canvas.height/2 + 60);
+            }
+        }
+
+        // ======================== 记忆翻牌游戏 ========================
+        class MemoryGame {
+            constructor() {
+                this.container = document.getElementById('card-container');
+                this.cards = [];
+                this.flippedCards = [];
+                this.matchedPairs = 0;
+                this.canFlip = true;
+                
+                this.init();
+            }
+            
+            init() {
+                this.container.innerHTML = '';
+                
+                // 创建卡片
+                const symbols = ['🍎', '🍌', '🍒', '🍇', '🍊', '🍓', '🍑', '🍍'];
+                const cardValues = [...symbols, ...symbols];
+                
+                // 洗牌
+                this.shuffleArray(cardValues);
+                
+                // 创建卡片元素
+                cardValues.forEach((symbol, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.dataset.index = index;
+                    
+                    card.innerHTML = `
+                        <div class="front">?</div>
+                        <div class="back">${symbol}</div>
+                    `;
+                    
+                    card.addEventListener('click', () => this.flipCard(card));
+                    this.container.appendChild(card);
+                    this.cards.push(card);
+                });
+                
+                this.flippedCards = [];
+                this.matchedPairs = 0;
+                this.canFlip = true;
+            }
+            
+            reset() {
+                this.init();
+            }
+            
+            flipCard(card) {
+                if (!this.canFlip || card.classList.contains('flipped') || this.flippedCards.length >= 2) return;
+                
+                card.classList.add('flipped');
+                this.flippedCards.push(card);
+                
+                if (this.flippedCards.length === 2) {
+                    this.canFlip = false;
+                    
+                    const card1 = this.flippedCards[0];
+                    const card2 = this.flippedCards[1];
+                    
+                    const symbol1 = card1.querySelector('.back').textContent;
+                    const symbol2 = card2.querySelector('.back').textContent;
+                    
+                    if (symbol1 === symbol2) {
+                        // 配对成功
+                        setTimeout(() => {
+                            card1.classList.add('matched');
+                            card2.classList.add('matched');
+                            this.flippedCards = [];
+                            this.canFlip = true;
+                            
+                            this.matchedPairs++;
+                            if (this.matchedPairs === this.cards.length / 2) {
+                                setTimeout(() => {
+                                    alert(`恭喜！你完成了游戏！`);
+                                }, 500);
+                            }
+                        }, 500);
+                    } else {
+                        // 配对失败
+                        setTimeout(() => {
+                            card1.classList.remove('flipped');
+                            card2.classList.remove('flipped');
+                            this.flippedCards = [];
+                            this.canFlip = true;
+                        }, 1000);
+                    }
+                }
+            }
+            
+            shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+        }
+
+        // ======================== 打砖块游戏 ========================
+        class BrickGame {
+            constructor() {
+                this.canvas = document.getElementById('brick-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.paddle = {
+                    x: 250,
+                    width: 100,
+                    height: 15
+                };
+                this.ball = {
+                    x: 300,
+                    y: 350,
+                    radius: 10,
+                    dx: 4,
+                    dy: -4
+                };
+                this.bricks = [];
+                this.brickRowCount = 4;
+                this.brickColumnCount = 7;
+                this.brickWidth = 70;
+                this.brickHeight = 20;
+                this.brickPadding = 10;
+                this.brickOffsetTop = 30;
+                this.brickOffsetLeft = 30;
+                this.score = 0;
+                this.highScore = localStorage.getItem('brickHighScore') || 0;
+                this.running = false;
+                this.gameLoop = null;
+                
+                this.init();
+            }
+            
+            init() {
+                // 初始化挡板
+                this.paddle.x = this.canvas.width / 2 - this.paddle.width / 2;
+                
+                // 初始化小球
+                this.ball.x = this.canvas.width / 2;
+                this.ball.y = this.canvas.height - 30;
+                this.ball.dx = 4;
+                this.ball.dy = -4;
+                
+                // 初始化砖块
+                this.bricks = [];
+                for (let c = 0; c < this.brickColumnCount; c++) {
+                    this.bricks[c] = [];
+                    for (let r = 0; r < this.brickRowCount; r++) {
+                        this.bricks[c][r] = { x: 0, y: 0, status: 1 };
+                    }
+                }
+                
+                // 显示分数
+                this.score = 0;
+                GameManager.updateScore(this.score);
+                GameManager.updateHighScore(this.highScore);
+                
+                // 添加事件监听
+                this.canvas.addEventListener('mousemove', this.movePaddle.bind(this));
+                document.addEventListener('keydown', this.movePaddleKeyboard.bind(this));
+                
+                // 绘制初始状态
+                this.draw();
+            }
+            
+            start() {
+                if (this.running) return;
+                this.running = true;
+                this.gameLoop = setInterval(this.update.bind(this), 16);
+            }
+            
+            pause() {
+                this.running = false;
+                clearInterval(this.gameLoop);
+            }
+            
+            reset() {
+                this.pause();
+                this.init();
+            }
+            
+            update() {
+                this.draw();
+                
+                // 移动小球
+                this.ball.x += this.ball.dx;
+                this.ball.y += this.ball.dy;
+                
+                // 边界碰撞检测
+                if (this.ball.x + this.ball.radius > this.canvas.width || this.ball.x - this.ball.radius < 0) {
+                    this.ball.dx = -this.ball.dx;
+                }
+                
+                if (this.ball.y - this.ball.radius < 0) {
+                    this.ball.dy = -this.ball.dy;
+                } else if (this.ball.y + this.ball.radius > this.canvas.height - this.paddle.height) {
+                    // 挡板碰撞检测
+                    if (this.ball.x > this.paddle.x && this.ball.x < this.paddle.x + this.paddle.width) {
+                        this.ball.dy = -this.ball.dy;
+                        
+                        // 根据击中挡板的位置改变反弹角度
+                        const hitPos = (this.ball.x - this.paddle.x) / this.paddle.width;
+                        this.ball.dx = 8 * (hitPos - 0.5);
+                    } else if (this.ball.y + this.ball.radius > this.canvas.height) {
+                        // 游戏结束
+                        this.gameOver();
+                        return;
+                    }
+                }
+                
+                // 砖块碰撞检测
+                let bricksLeft = 0;
+                for (let c = 0; c < this.brickColumnCount; c++) {
+                    for (let r = 0; r < this.brickRowCount; r++) {
+                        if (this.bricks[c][r].status === 1) {
+                            bricksLeft++;
+                            const brickX = c * (this.brickWidth + this.brickPadding) + this.brickOffsetLeft;
+                            const brickY = r * (this.brickHeight + this.brickPadding) + this.brickOffsetTop;
+                            this.bricks[c][r].x = brickX;
+                            this.bricks[c][r].y = brickY;
+                            
+                            if (
+                                this.ball.x > brickX &&
+                                this.ball.x < brickX + this.brickWidth &&
+                                this.ball.y > brickY &&
+                                this.ball.y < brickY + this.brickHeight
+                            ) {
+                                this.ball.dy = -this.ball.dy;
+                                this.bricks[c][r].status = 0;
+                                this.score += 10;
+                                GameManager.updateScore(this.score);
+                                
+                                // 检查是否胜利
+                                if (bricksLeft === 1) {
+                                    setTimeout(() => {
+                                        this.highScore = Math.max(this.score, this.highScore);
+                                        localStorage.setItem('brickHighScore', this.highScore);
+                                        GameManager.updateHighScore(this.highScore);
+                                        
+                                        alert(`恭喜！你赢了！得分: ${this.score}`);
+                                        this.reset();
+                                    }, 500);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // 绘制挡板
+                this.ctx.fillStyle = '#4CAF50';
+                this.ctx.fillRect(this.paddle.x, this.canvas.height - this.paddle.height, this.paddle.width, this.paddle.height);
+                
+                // 绘制小球
+                this.ctx.fillStyle = '#FF5252';
+                this.ctx.beginPath();
+                this.ctx.arc(this.ball.x, this.ball.y, this.ball.radius, 0, Math.PI * 2);
+                this.ctx.fill();
+                
+                // 绘制砖块
+                for (let c = 0; c < this.brickColumnCount; c++) {
+                    for (let r = 0; r < this.brickRowCount; r++) {
+                        if (this.bricks[c][r].status === 1) {
+                            const brickX = c * (this.brickWidth + this.brickPadding) + this.brickOffsetLeft;
+                            const brickY = r * (this.brickHeight + this.brickPadding) + this.brickOffsetTop;
+                            
+                            this.ctx.fillStyle = '#9c27b0';
+                            this.ctx.fillRect(brickX, brickY, this.brickWidth, this.brickHeight);
+                            
+                            // 添加砖块内部细节
+                            this.ctx.fillStyle = '#7b1fa2';
+                            this.ctx.fillRect(brickX + 2, brickY + 2, this.brickWidth - 4, this.brickHeight - 4);
+                        }
+                    }
+                }
+            }
+            
+            movePaddle(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const relativeX = e.clientX - rect.left;
+                if (relativeX > this.paddle.width / 2 && relativeX < this.canvas.width - this.paddle.width / 2) {
+                    this.paddle.x = relativeX - this.paddle.width / 2;
+                }
+            }
+            
+            movePaddleKeyboard(e) {
+                if (e.key === 'ArrowLeft' && this.paddle.x > 0) {
+                    this.paddle.x -= 20;
+                } else if (e.key === 'ArrowRight' && this.paddle.x < this.canvas.width - this.paddle.width) {
+                    this.paddle.x += 20;
+                }
+            }
+            
+            gameOver() {
+                this.pause();
+                this.highScore = Math.max(this.score, this.highScore);
+                localStorage.setItem('brickHighScore', this.highScore);
+                GameManager.updateHighScore(this.highScore);
+                
+                this.ctx.font = "48px Arial";
+                this.ctx.fillStyle = "white";
+                this.ctx.textAlign = "center";
+                this.ctx.fillText("游戏结束!", this.canvas.width/2, this.canvas.height/2 - 30);
+                
+                this.ctx.font = "24px Arial";
+                this.ctx.fillText(`得分: ${this.score}`, this.canvas.width/2, this.canvas.height/2 + 20);
+                
+                this.ctx.fillText("按'重新开始'按钮再玩一次", this.canvas.width/2, this.canvas.height/2 + 60);
+            }
+        }
+
+        // ======================== 井字棋游戏 ========================
+        class TicTacToe {
+            constructor() {
+                this.board = document.getElementById('tic-tac-toe-board');
+                this.currentPlayer = 'X';
+                this.gameBoard = ['', '', '', '', '', '', '', '', ''];
+                this.gameActive = true;
+                
+                this.init();
+            }
+            
+            init() {
+                this.board.innerHTML = '';
+                
+                for (let i = 0; i < 9; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.index = i;
+                    cell.addEventListener('click', () => this.cellClicked(i));
+                    this.board.appendChild(cell);
+                }
+                
+                this.currentPlayer = 'X';
+                this.gameBoard = ['', '', '', '', '', '', '', '', ''];
+                this.gameActive = true;
+            }
+            
+            reset() {
+                this.init();
+            }
+            
+            cellClicked(index) {
+                if (!this.gameActive || this.gameBoard[index] !== '') return;
+                
+                this.gameBoard[index] = this.currentPlayer;
+                document.querySelector(`.cell[data-index="${index}"]`).classList.add(this.currentPlayer.toLowerCase());
+                
+                if (this.checkWinner()) {
+                    setTimeout(() => {
+                        alert(`玩家 ${this.currentPlayer} 获胜！`);
+                        this.gameActive = false;
+                    }, 100);
+                    return;
+                }
+                
+                if (this.checkDraw()) {
+                    setTimeout(() => {
+                        alert("平局！");
+                        this.gameActive = false;
+                    }, 100);
+                    return;
+                }
+                
+                this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+            }
+            
+            checkWinner() {
+                const winPatterns = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8], // 行
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8], // 列
+                    [0, 4, 8], [2, 4, 6]             // 对角线
+                ];
+                
+                return winPatterns.some(pattern => {
+                    const [a, b, c] = pattern;
+                    return this.gameBoard[a] && this.gameBoard[a] === this.gameBoard[b] && this.gameBoard[a] === this.gameBoard[c];
+                });
+            }
+            
+            checkDraw() {
+                return this.gameBoard.every(cell => cell !== '');
+            }
+        }
+
+        // ======================== 扫雷游戏 - 完全重构 ========================
+        class Minesweeper {
+            constructor() {
+                this.board = document.getElementById('minesweeper-board');
+                this.rows = 10;
+                this.cols = 10;
+                this.totalMines = 15;
+                this.mineBoard = [];
+                this.minesPlaced = false;
+                this.score = 0;
+                this.highScore = localStorage.getItem('mineHighScore') || 0;
+                this.gameOver = false;
+                this.cellsRevealed = 0;
+                this.totalSafeCells = this.rows * this.cols - this.totalMines;
+                
+                this.init();
+            }
+            
+            init() {
+                this.board.innerHTML = '';
+                
+                // 初始化游戏板
+                this.mineBoard = Array(this.rows).fill().map(() => 
+                    Array(this.cols).fill().map(() => ({
+                        isMine: false,
+                        isRevealed: false,
+                        isFlagged: false,
+                        neighborCount: 0
+                    }))
+                );
+                
+                this.minesPlaced = false;
+                this.gameOver = false;
+                this.score = 0;
+                this.cellsRevealed = 0;
+                GameManager.updateScore(this.score);
+                GameManager.updateHighScore(this.highScore);
+                
+                // 创建格子
+                for (let r = 0; r < this.rows; r++) {
+                    for (let c = 0; c < this.cols; c++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'mine-cell';
+                        cell.dataset.row = r;
+                        cell.dataset.col = c;
+                        
+                        cell.addEventListener('click', (e) => this.revealCell(r, c));
+                        cell.addEventListener('contextmenu', (e) => {
+                            e.preventDefault();
+                            this.flagCell(r, c);
+                        });
+                        
+                        this.board.appendChild(cell);
+                    }
+                }
+            }
+            
+            reset() {
+                this.init();
+            }
+            
+            placeMines(firstRow, firstCol) {
+                this.minesPlaced = true;
+                let minesPlacedCount = 0;
+                
+                // 重置地雷和计数
+                for (let r = 0; r < this.rows; r++) {
+                    for (let c = 0; c < this.cols; c++) {
+                        this.mineBoard[r][c].isMine = false;
+                        this.mineBoard[r][c].neighborCount = 0;
+                    }
+                }
+                
+                // 随机放置地雷
+                while (minesPlacedCount < this.totalMines) {
+                    const r = Math.floor(Math.random() * this.rows);
+                    const c = Math.floor(Math.random() * this.cols);
+                    
+                    // 确保第一个点击的格子不是地雷，并且当前位置没有地雷
+                    if (!(r === firstRow && c === firstCol) && !this.mineBoard[r][c].isMine) {
+                        this.mineBoard[r][c].isMine = true;
+                        minesPlacedCount++;
+                    }
+                }
+                
+                // 计算每个格子的周围地雷数量
+                for (let r = 0; r < this.rows; r++) {
+                    for (let c = 0; c < this.cols; c++) {
+                        if (!this.mineBoard[r][c].isMine) {
+                            let count = 0;
+                            // 检查周围8个格子
+                            for (let dr = -1; dr <= 1; dr++) {
+                                for (let dc = -1; dc <= 1; dc++) {
+                                    if (dr === 0 && dc === 0) continue;
+                                    
+                                    const nr = r + dr;
+                                    const nc = c + dc;
+                                    
+                                    if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
+                                        if (this.mineBoard[nr][nc].isMine) {
+                                            count++;
+                                        }
+                                    }
+                                }
+                            }
+                            this.mineBoard[r][c].neighborCount = count;
+                        }
+                    }
+                }
+            }
+            
+            revealCell(r, c) {
+                // 如果游戏结束、格子已标记或已揭示，则返回
+                if (this.gameOver || this.mineBoard[r][c].isFlagged || this.mineBoard[r][c].isRevealed) return;
+                
+                // 如果是第一次点击，放置地雷
+                if (!this.minesPlaced) {
+                    this.placeMines(r, c);
+                }
+                
+                // 如果是地雷，游戏结束
+                if (this.mineBoard[r][c].isMine) {
+                    this.gameOver = true;
+                    // 显示所有地雷
+                    for (let r = 0; r < this.rows; r++) {
+                        for (let c = 0; c < this.cols; c++) {
+                            if (this.mineBoard[r][c].isMine) {
+                                const cell = document.querySelector(`.mine-cell[data-row="${r}"][data-col="${c}"]`);
+                                cell.classList.add('mine');
+                            }
+                        }
+                    }
+                    setTimeout(() => {
+                        alert("游戏结束！你踩到了地雷！");
+                    }, 100);
+                    return;
+                }
+                
+                // 使用队列进行广度优先搜索（避免递归）
+                const queue = [{r, c}];
+                const visited = new Set();
+                visited.add(`${r},${c}`);
+                
+                while (queue.length > 0) {
+                    const {r, c} = queue.shift();
+                    
+                    // 如果格子已经被揭示，跳过
+                    if (this.mineBoard[r][c].isRevealed) continue;
+                    
+                    // 揭示当前格子
+                    this.mineBoard[r][c].isRevealed = true;
+                    this.cellsRevealed++;
+                    
+                    const cell = document.querySelector(`.mine-cell[data-row="${r}"][data-col="${c}"]`);
+                    cell.classList.add('revealed');
+                    
+                    // 如果是数字格子，显示数字
+                    if (this.mineBoard[r][c].neighborCount > 0) {
+                        cell.textContent = this.mineBoard[r][c].neighborCount;
+                        cell.style.color = ['blue', 'green', 'red', 'purple', 'maroon', 'turquoise', 'black', 'gray'][this.mineBoard[r][c].neighborCount - 1];
+                    } 
+                    // 如果是空白格子，添加周围格子到队列
+                    else {
+                        for (let dr = -1; dr <= 1; dr++) {
+                            for (let dc = -1; dc <= 1; dc++) {
+                                if (dr === 0 && dc === 0) continue;
+                                
+                                const nr = r + dr;
+                                const nc = c + dc;
+                                const key = `${nr},${nc}`;
+                                
+                                // 检查是否在边界内、未访问过、未揭示、不是地雷
+                                if (
+                                    nr >= 0 && nr < this.rows && 
+                                    nc >= 0 && nc < this.cols &&
+                                    !visited.has(key) &&
+                                    !this.mineBoard[nr][nc].isRevealed &&
+                                    !this.mineBoard[nr][nc].isMine
+                                ) {
+                                    visited.add(key);
+                                    queue.push({r: nr, c: nc});
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // 更新分数
+                this.score = this.cellsRevealed * 5;
+                GameManager.updateScore(this.score);
+                
+                // 检查是否胜利
+                if (this.cellsRevealed === this.totalSafeCells) {
+                    this.highScore = Math.max(this.score, this.highScore);
+                    localStorage.setItem('mineHighScore', this.highScore);
+                    GameManager.updateHighScore(this.highScore);
+                    
+                    setTimeout(() => {
+                        alert(`恭喜！你赢了！得分: ${this.score}`);
+                    }, 100);
+                }
+            }
+            
+            flagCell(r, c) {
+                if (this.gameOver || this.mineBoard[r][c].isRevealed) return;
+                
+                this.mineBoard[r][c].isFlagged = !this.mineBoard[r][c].isFlagged;
+                const cell = document.querySelector(`.mine-cell[data-row="${r}"][data-col="${c}"]`);
+                
+                if (this.mineBoard[r][c].isFlagged) {
+                    cell.classList.add('flagged');
+                } else {
+                    cell.classList.remove('flagged');
+                }
+            }
+        }
+
+        // 初始化页面
+        window.onload = function() {
+            // 初始化游戏管理器
+            GameManager.selectGame('snake');
+        };
+    </script>
+</body>
+</html>
